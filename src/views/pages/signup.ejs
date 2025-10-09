@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<main>
+  <h1>Create Your Account</h1>
+  <form action="/signup" method="POST">
+    <div>
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" required />
+    </div>
+    <div>
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" required />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+    <div>
+      <label>I am a:</label>
+      <select name="role" required>
+        <option value="customer" selected>
+          Customer (Looking for services)
+        </option>
+        <option value="provider">Provider (Offering services)</option>
+      </select>
+    </div>
+    <button type="submit">Sign Up</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

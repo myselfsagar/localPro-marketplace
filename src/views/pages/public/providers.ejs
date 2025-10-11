@@ -1,0 +1,25 @@
+<%- include('../../partials/header') %>
+
+<main>
+  <h1>Find Local Professionals</h1>
+
+  <div class="provider-list">
+    <% if (providers.length > 0) { %> <% providers.forEach(provider => { %>
+    <div class="provider-card">
+      <h3>
+        <a href="/providers/<%= provider.id %>"><%= provider.businessName %></a>
+      </h3>
+      <p>
+        <strong>Proprietor:</strong> <%= provider.User.firstName %> <%=
+        provider.User.lastName %>
+      </p>
+      <p><strong>Location:</strong> <%= provider.location %></p>
+      <a href="/providers/<%= provider.id %>" class="btn">View Profile</a>
+    </div>
+    <% }) %> <% } else { %>
+    <p>No providers have signed up yet. Check back soon!</p>
+    <% } %>
+  </div>
+</main>
+
+<%- include('../../partials/footer') %>

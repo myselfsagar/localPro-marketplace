@@ -1,0 +1,38 @@
+<%- include('../../partials/header') %>
+
+<main class="provider-detail-container">
+  <div class="profile-header">
+    <h1><%= provider.businessName %></h1>
+    <p>
+      <strong>Proprietor:</strong> <%= provider.User.firstName %> <%=
+      provider.User.lastName %>
+    </p>
+    <p><strong>Location:</strong> <%= provider.location %></p>
+  </div>
+
+  <div class="profile-bio">
+    <h2>About Us</h2>
+    <p><%= provider.bio %></p>
+  </div>
+
+  <hr />
+
+  <div class="services-section">
+    <h2>Services Offered</h2>
+    <% if (provider.Services && provider.Services.length > 0) { %>
+    <div class="service-list">
+      <% provider.Services.forEach(service => { %>
+      <div class="service-item">
+        <h3><%= service.name %></h3>
+        <p class="service-price">$<%= service.price %></p>
+        <p><%= service.description %></p>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <p>This provider has not listed any services yet.</p>
+    <% } %>
+  </div>
+</main>
+
+<%- include('../../partials/footer') %>

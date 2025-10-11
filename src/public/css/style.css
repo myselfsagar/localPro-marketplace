@@ -40,3 +40,68 @@
 .navbar-links span {
   color: #a0a0a0; /* Lighter color for welcome message */
 }
+
+/* Provider List Styling */
+.provider-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.provider-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.provider-card h3 a {
+  text-decoration: none;
+  color: #333;
+}
+
+.provider-card .btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Provider Detail Page Styling */
+.provider-detail-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.services-section h2 {
+  margin-bottom: 1rem;
+}
+
+.service-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.service-item h3 {
+  margin-top: 0;
+}
+
+.service-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c5e2e;
+}

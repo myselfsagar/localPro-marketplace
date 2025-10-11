@@ -1,5 +1,6 @@
 const ProviderProfile = require("../models/providerProfile.model");
 const providerService = require("../services/provider.service");
+const Service = require("../models/service.model");
 
 // This function will render the provider's profile management page
 exports.getProfilePage = async (req, res) => {
@@ -7,15 +8,16 @@ exports.getProfilePage = async (req, res) => {
     // Find the provider's profile using the logged-in user's ID
     const profile = await ProviderProfile.findOne({
       where: { userId: req.user.id },
+      include: Service,
     });
 
     res.render("pages/provider/profile", {
       pageTitle: "Manage Your Profile",
-      profile: profile, // This will be null if they haven't created one yet
+      profile: profile,
+      services: profile ? profile.Services : [],
     });
   } catch (error) {
     console.error(error);
-    // Redirect to dashboard or show an error page
     res.redirect("/dashboard");
   }
 };
@@ -29,7 +31,26 @@ exports.postProfilePage = async (req, res) => {
     res.redirect("/provider/profile");
   } catch (error) {
     console.error(error);
-    // Handle errors, maybe render the page again with an error message
     res.redirect("/provider/profile");
+  }
+};
+
+// Renders the page with the "add new service" form
+exports.getAddServicePage = (req, res) => {
+  res.render("pages/provider/add-service", {
+    pageTitle: "Add a New Service",
+  });
+};
+
+// Handles the creation of the new service
+exports.postAddService = async (req, res) => {
+  try {
+    // Delegate the logic to the service layer
+    await providerService.createService(req.body, req.user.id);
+    res.redirect("/provider/profile");
+  } catch (error) {
+    console.error(error);
+    // Optional: Redirect back to the form with an error message
+    res.redirect("/provider/services/new");
   }
 };

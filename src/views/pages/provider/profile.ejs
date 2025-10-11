@@ -42,6 +42,23 @@
 
     <button type="submit">Save Profile</button>
   </form>
+
+  <hr />
+  <h2>Your Services</h2>
+  <% if (services.length > 0) { %>
+  <ul>
+    <% services.forEach(service => { %>
+    <li>
+      <strong><%= service.name %></strong> - $<%= service.price %>
+      <p><%= service.description %></p>
+    </li>
+    <% }) %>
+  </ul>
+  <% } else { %>
+  <p>You haven't added any services yet.</p>
+  <% } %>
+
+  <a href="/provider/services/new">Add New Service</a>
 </main>
 
 <%- include('../../partials/footer') %>

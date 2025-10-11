@@ -29,4 +29,20 @@ router.post(
   providerController.postProfilePage
 );
 
+// GET route to show the "add new service" form
+router.get(
+  "/services/new",
+  isAuthenticated,
+  isProvider,
+  providerController.getAddServicePage
+);
+
+// POST route to handle the form submission
+router.post(
+  "/services",
+  isAuthenticated,
+  isProvider,
+  providerController.postAddService
+);
+
 module.exports = router;

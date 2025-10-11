@@ -1,0 +1,47 @@
+<%- include('../../partials/header') %>
+
+<main>
+  <h1>Manage Your Business Profile</h1>
+  <p>Keep your details up to date so customers can find you.</p>
+
+  <form action="/provider/profile" method="POST">
+    <div>
+      <label for="businessName">Business Name</label>
+      <input
+        type="text"
+        id="businessName"
+        name="businessName"
+        value="<%= profile ? profile.businessName : '' %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        type="tel"
+        id="phoneNumber"
+        name="phoneNumber"
+        value="<%= profile ? profile.phoneNumber : '' %>"
+      />
+    </div>
+    <div>
+      <label for="location">Location (e.g., City, State)</label>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        value="<%= profile ? profile.location : '' %>"
+      />
+    </div>
+    <div>
+      <label for="bio">About Your Business</label>
+      <textarea id="bio" name="bio" rows="4">
+<%= profile ? profile.bio : '' %></textarea
+      >
+    </div>
+
+    <button type="submit">Save Profile</button>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

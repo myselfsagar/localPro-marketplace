@@ -2,14 +2,13 @@ const express = require("express");
 require("dotenv").config();
 const path = require("path");
 const sequelize = require("./src/config/db.config");
-const authRoutes = require("./src/routes/auth.routes");
-const dashboardRoutes = require("./src/routes/dashboard.routes");
+const routes = require("./src/routes/index");
 const session = require("express-session");
 const passport = require("passport");
 const app = express();
 
 //models
-const User = require("./src/models/user.model");
+require("./src/models/index");
 
 //Middlewares
 app.use(express.json());
@@ -49,8 +48,7 @@ app.use((req, res, next) => {
 });
 
 // --- Routes --- //
-app.use(authRoutes);
-app.use(dashboardRoutes);
+app.use(routes);
 
 // A simple route for the homepage
 app.get("/", (req, res) => {

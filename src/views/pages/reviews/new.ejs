@@ -1,0 +1,43 @@
+<%- include('../../partials/header') %>
+
+<main>
+  <h1>Leave a Review for "<%= booking.Service.name %>"</h1>
+  <p>Your feedback helps other customers and the provider.</p>
+
+  <form action="/reviews" method="POST">
+    <input type="hidden" name="bookingId" value="<%= booking.id %>" />
+
+    <div class="rating-group">
+      <label>Rating:</label>
+      <input type="radio" id="star5" name="rating" value="5" required /><label
+        for="star5"
+        >★</label
+      >
+      <input type="radio" id="star4" name="rating" value="4" /><label
+        for="star4"
+        >★</label
+      >
+      <input type="radio" id="star3" name="rating" value="3" /><label
+        for="star3"
+        >★</label
+      >
+      <input type="radio" id="star2" name="rating" value="2" /><label
+        for="star2"
+        >★</label
+      >
+      <input type="radio" id="star1" name="rating" value="1" /><label
+        for="star1"
+        >★</label
+      >
+    </div>
+
+    <div>
+      <label for="comment">Comment (optional):</label>
+      <textarea id="comment" name="comment" rows="4"></textarea>
+    </div>
+
+    <button type="submit">Submit Review</button>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

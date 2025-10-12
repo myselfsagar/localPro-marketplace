@@ -2,6 +2,7 @@ const User = require("./user.model");
 const ProviderProfile = require("./providerProfile.model");
 const Service = require("./service.model");
 const Booking = require("./booking.model");
+const Review = require("./review.model");
 
 // --- Define Associations --- //
 
@@ -20,3 +21,8 @@ User.hasMany(Booking, { as: "CustomerBookings", foreignKey: "customerId" });
 // A Booking is for one specific Service
 Booking.belongsTo(Service, { foreignKey: "serviceId" });
 Service.hasMany(Booking, { foreignKey: "serviceId" });
+
+// A Review belongs to one Booking
+Review.belongsTo(Booking, { foreignKey: "bookingId" });
+// A Booking has one Review
+Booking.hasOne(Review, { foreignKey: "bookingId" });

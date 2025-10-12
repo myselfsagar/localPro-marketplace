@@ -6,11 +6,13 @@ const dashboardRoutes = require("./dashboard.routes");
 const providerRoutes = require("./provider.routes");
 const publicRoutes = require("./public.routes");
 const bookingRoutes = require("./booking.routes");
+const reviewRoutes = require("./review.routes");
 
 router.use(authRoutes);
 router.use(dashboardRoutes);
 router.use("/provider", providerRoutes);
 router.use(publicRoutes);
 router.use("/book", bookingRoutes);
+router.use("/reviews", reviewRoutes);
 
 module.exports = router;

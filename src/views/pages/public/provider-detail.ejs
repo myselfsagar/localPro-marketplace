@@ -4,6 +4,10 @@
   <div class="profile-header">
     <h1><%= provider.businessName %></h1>
     <p>
+      <strong>Average Rating:</strong> <%= averageRating %> ★ (<%= reviewCount
+      %> reviews)
+    </p>
+    <p>
       <strong>Proprietor:</strong> <%= provider.User.firstName %> <%=
       provider.User.lastName %>
     </p>
@@ -43,6 +47,29 @@
     </p>
     <% } %> <% } else { %>
     <p>This provider has not listed any services yet.</p>
+    <% } %>
+  </div>
+
+  <hr />
+
+  <div class="reviews-section">
+    <h2>Customer Reviews</h2>
+    <% if (reviews.length > 0) { %> <% reviews.forEach(review => { %>
+    <div class="review-card">
+      <p>
+        <strong>Rating:</strong>
+        <%= '★'.repeat(review.rating) %><span style="color: #ddd"
+          ><%= '★'.repeat(5 - review.rating) %></span
+        >
+      </p>
+      <p>"<%= review.comment %>"</p>
+      <small
+        >- <%= review.customerName %>, <%= new
+        Date(review.createdAt).toLocaleDateString() %></small
+      >
+    </div>
+    <% }) %> <% } else { %>
+    <p>This provider has no reviews yet.</p>
     <% } %>
   </div>
 </main>

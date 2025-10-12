@@ -2,7 +2,6 @@
 
 <main>
   <h1>Welcome to your Dashboard, <%= user.firstName %>!</h1>
-
   <hr />
 
   <h2>My Bookings</h2>
@@ -13,6 +12,10 @@
     <div class="booking-card">
       <% if (user.role === 'customer') { %>
       <h4><%= booking.Service.name %></h4>
+      <p>
+        with
+        <strong><%= booking.Service.ProviderProfile.businessName %></strong>
+      </p>
       <% } else { %>
       <h4><%= booking.Service.name %></h4>
       <p>
@@ -31,7 +34,13 @@
         <span class="status-<%= booking.status %>"><%= booking.status %></span>
       </p>
 
-      <% if (user.role === 'provider' && booking.status === 'pending') { %>
+      <% if (user.role === 'customer' && booking.status === 'completed' &&
+      !booking.Review) { %>
+      <div class="booking-actions">
+        <a href="/reviews/new/<%= booking.id %>" class="btn">Leave a Review</a>
+      </div>
+      <% } %> <% if (user.role === 'provider') { %> <% if (booking.status ===
+      'pending') { %>
       <div class="booking-actions">
         <form
           action="/provider/bookings/<%= booking.id %>/status"
@@ -50,7 +59,18 @@
           <button type="submit" class="btn-cancel">Cancel</button>
         </form>
       </div>
-      <% } %>
+      <% } else if (booking.status === 'confirmed') { %>
+      <div class="booking-actions">
+        <form
+          action="/provider/bookings/<%= booking.id %>/status"
+          method="POST"
+          style="display: inline"
+        >
+          <input type="hidden" name="status" value="completed" />
+          <button type="submit" class="btn-complete">Mark as Completed</button>
+        </form>
+      </div>
+      <% } %> <% } %>
     </div>
     <% }) %>
   </div>

@@ -2,6 +2,7 @@ const Booking = require("../models/booking.model");
 const Service = require("../models/service.model");
 const ProviderProfile = require("../models/providerProfile.model");
 const User = require("../models/user.model");
+const Review = require("../models/review.model");
 
 exports.getDashboardPage = async (req, res) => {
   try {
@@ -10,14 +11,21 @@ exports.getDashboardPage = async (req, res) => {
       // --- Fetch bookings for a customer ---
       bookings = await Booking.findAll({
         where: { customerId: req.user.id },
-        include: {
-          model: Service,
-          attributes: ["name", "price"],
-          include: {
-            model: ProviderProfile,
-            attributes: ["businessName"],
+        include: [
+          // Use an array for multiple includes
+          {
+            model: Service,
+            attributes: ["name", "price"],
+            include: {
+              model: ProviderProfile,
+              attributes: ["businessName"],
+            },
           },
-        },
+          {
+            model: Review,
+            required: false,
+          },
+        ],
         order: [["bookingDate", "DESC"]],
       });
     } else if (req.user.role === "provider") {

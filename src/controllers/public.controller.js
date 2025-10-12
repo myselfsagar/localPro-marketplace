@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const User = require("../models/user.model");
 const ProviderProfile = require("../models/providerProfile.model");
 const Service = require("../models/service.model");
@@ -7,20 +8,51 @@ const Review = require("../models/review.model");
 // This function fetches all providers to display on the browse page
 exports.getAllProvidersPage = async (req, res) => {
   try {
+    // 1. Get search terms from the URL query string
+    const { search, location } = req.query;
+
+    // 2. Build the main query conditions for the ProviderProfile
+    const profileWhereClause = {};
+    if (location) {
+      // Find locations that contain the search term (case-insensitive)
+      profileWhereClause.location = { [Op.like]: `%${location}%` };
+    }
+
+    // 3. Build the search conditions for services or business names
+    let includeWhereClause = {};
+    if (search) {
+      // This will search in EITHER the Service name OR the Provider's business name
+      includeWhereClause = {
+        [Op.or]: [
+          { name: { [Op.like]: `%${search}%` } }, // Search in Service.name
+          { "$ProviderProfile.businessName$": { [Op.like]: `%${search}%` } }, // Search in ProviderProfile.businessName
+        ],
+      };
+    }
+
+    // 4. Execute the dynamic query
     const providers = await ProviderProfile.findAll({
+      where: profileWhereClause, // Apply location filter here
       include: [
-        { model: User, attributes: ["firstName", "lastName"] }, // Get provider's name
-        { model: Service, attributes: ["name"] }, // Get names of services offered
+        { model: User, attributes: ["firstName", "lastName"] },
+        {
+          model: Service,
+          where: includeWhereClause, // Apply search term filter here
+          required: search ? true : false, // Use INNER JOIN if searching, otherwise LEFT JOIN
+        },
       ],
     });
 
+    // 5. Render the page, passing the search terms back to the view
     res.render("pages/public/providers", {
       pageTitle: "Browse Professionals",
       providers: providers,
+      searchTerm: search || "", // Pass search term or empty string
+      locationTerm: location || "", // Pass location or empty string
     });
   } catch (error) {
     console.error(error);
-    res.redirect("/"); // Redirect home on error
+    res.redirect("/");
   }
 };
 

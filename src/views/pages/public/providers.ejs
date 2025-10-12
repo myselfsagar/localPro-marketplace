@@ -3,6 +3,25 @@
 <main>
   <h1>Find Local Professionals</h1>
 
+  <div class="search-container">
+    <form action="/providers" method="GET">
+      <input
+        type="text"
+        name="search"
+        placeholder="Search by service or business name..."
+        value="<%= searchTerm %>"
+      />
+      <input
+        type="text"
+        name="location"
+        placeholder="Location (e.g., City)"
+        value="<%= locationTerm %>"
+      />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <hr />
+
   <div class="provider-list">
     <% if (providers.length > 0) { %> <% providers.forEach(provider => { %>
     <div class="provider-card">

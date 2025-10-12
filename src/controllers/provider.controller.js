@@ -1,6 +1,7 @@
 const ProviderProfile = require("../models/providerProfile.model");
 const providerService = require("../services/provider.service");
 const Service = require("../models/service.model");
+const bookingService = require("../services/booking.service");
 
 // This function will render the provider's profile management page
 exports.getProfilePage = async (req, res) => {
@@ -52,5 +53,21 @@ exports.postAddService = async (req, res) => {
     console.error(error);
     // Optional: Redirect back to the form with an error message
     res.redirect("/provider/services/new");
+  }
+};
+
+// This function handles updating the status of a booking
+exports.updateBookingStatus = async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const { status } = req.body; // 'confirmed' or 'cancelled' from the form
+    const providerUserId = req.user.id;
+
+    await bookingService.updateBookingStatus(bookingId, providerUserId, status);
+
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.error("Failed to update booking status:", error);
+    res.redirect("/dashboard");
   }
 };

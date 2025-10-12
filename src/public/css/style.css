@@ -180,3 +180,28 @@
   color: #d9534f;
   font-weight: bold;
 }
+
+.booking-actions {
+  margin-top: 0.5rem;
+}
+.btn-confirm,
+.btn-cancel {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+.btn-confirm {
+  background-color: #5cb85c;
+}
+.btn-confirm:hover {
+  background-color: #15b315;
+}
+
+.btn-cancel {
+  background-color: #d9534f;
+}
+.btn-cancel:hover {
+  background-color: #a31d18;
+}

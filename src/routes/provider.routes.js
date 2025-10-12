@@ -45,4 +45,12 @@ router.post(
   providerController.postAddService
 );
 
+// POST /provider/bookings/:bookingId/status - Updates a booking's status
+router.post(
+  "/bookings/:bookingId/status",
+  isAuthenticated,
+  isProvider,
+  providerController.updateBookingStatus
+);
+
 module.exports = router;

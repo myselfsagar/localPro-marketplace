@@ -13,10 +13,6 @@
     <div class="booking-card">
       <% if (user.role === 'customer') { %>
       <h4><%= booking.Service.name %></h4>
-      <p>
-        with
-        <strong><%= booking.Service.ProviderProfile.businessName %></strong>
-      </p>
       <% } else { %>
       <h4><%= booking.Service.name %></h4>
       <p>
@@ -28,11 +24,33 @@
       </p>
       <% } %>
 
+      <p>Price: <strong>$<%= booking.Service.price %></strong></p>
       <p>Date: <%= new Date(booking.bookingDate).toLocaleString() %></p>
       <p>
         Status:
         <span class="status-<%= booking.status %>"><%= booking.status %></span>
       </p>
+
+      <% if (user.role === 'provider' && booking.status === 'pending') { %>
+      <div class="booking-actions">
+        <form
+          action="/provider/bookings/<%= booking.id %>/status"
+          method="POST"
+          style="display: inline"
+        >
+          <input type="hidden" name="status" value="confirmed" />
+          <button type="submit" class="btn-confirm">Confirm</button>
+        </form>
+        <form
+          action="/provider/bookings/<%= booking.id %>/status"
+          method="POST"
+          style="display: inline"
+        >
+          <input type="hidden" name="status" value="cancelled" />
+          <button type="submit" class="btn-cancel">Cancel</button>
+        </form>
+      </div>
+      <% } %>
     </div>
     <% }) %>
   </div>

@@ -33,7 +33,7 @@ exports.getDashboardPage = async (req, res) => {
             {
               model: Service,
               where: { providerProfileId: profile.id },
-              attributes: ["name"],
+              attributes: ["name", "price"],
             },
             {
               model: User,

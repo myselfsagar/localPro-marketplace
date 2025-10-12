@@ -25,6 +25,17 @@
   <div class="provider-list">
     <% if (providers.length > 0) { %> <% providers.forEach(provider => { %>
     <div class="provider-card">
+      <img
+        src="<%= provider.profileImageUrl || '/images/default-profile.png' %>"
+        alt="<%= provider.businessName %> Profile"
+        style="
+          max-width: 80px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-bottom: 0.5rem;
+        "
+      />
       <h3>
         <a href="/providers/<%= provider.id %>"><%= provider.businessName %></a>
       </h3>

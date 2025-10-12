@@ -26,6 +26,11 @@ const ProviderProfile = sequelize.define(
       type: DataTypes.STRING, // e.g., "Bengaluru, Karnataka"
       allowNull: true,
     },
+    profileImageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "/images/default-profile.png",
+    },
   },
   {
     tableName: "ProviderProfiles",

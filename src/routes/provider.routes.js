@@ -1,6 +1,8 @@
 const express = require("express");
 const providerController = require("../controllers/provider.controller");
 const { isAuthenticated } = require("../middleware/auth.middleware");
+const upload = require("../middleware/upload.middleware");
+const uploadServiceImage = require("../middleware/uploadServiceImage.middleware");
 
 const router = express.Router();
 
@@ -26,6 +28,7 @@ router.post(
   "/profile",
   isAuthenticated,
   isProvider,
+  upload.single("profileImage"),
   providerController.postProfilePage
 );
 
@@ -42,6 +45,7 @@ router.post(
   "/services",
   isAuthenticated,
   isProvider,
+  uploadServiceImage.single("serviceImage"),
   providerController.postAddService
 );
 

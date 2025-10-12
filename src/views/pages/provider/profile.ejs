@@ -4,7 +4,34 @@
   <h1>Manage Your Business Profile</h1>
   <p>Keep your details up to date so customers can find you.</p>
 
-  <form action="/provider/profile" method="POST">
+  <form action="/provider/profile" method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="profileImage">Profile Picture</label>
+      <% if (profile && profile.profileImageUrl) { %>
+      <img
+        src="<%= profile.profileImageUrl %>"
+        alt="Current Profile Picture"
+        style="
+          max-width: 120px;
+          height: 120px;
+          object-fit: cover;
+          border-radius: 50%;
+          display: block;
+          margin-bottom: 10px;
+        "
+      />
+      <p>Change Picture:</p>
+      <% } %>
+      <input
+        type="file"
+        id="profileImage"
+        name="profileImage"
+        accept="image/png, image/jpeg, image/gif"
+      />
+    </div>
+
+    <hr />
+
     <div>
       <label for="businessName">Business Name</label>
       <input
@@ -25,7 +52,7 @@
       />
     </div>
     <div>
-      <label for="location">Location (e.g., City, State)</label>
+      <label for="location">Location (e.g., Bengaluru, Karnataka)</label>
       <input
         type="text"
         id="location"
@@ -44,6 +71,7 @@
   </form>
 
   <hr />
+
   <h2>Your Services</h2>
   <% if (services.length > 0) { %>
   <ul>

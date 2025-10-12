@@ -2,6 +2,17 @@
 
 <main class="provider-detail-container">
   <div class="profile-header">
+    <img
+      src="<%= provider.profileImageUrl || '/images/default-profile.png' %>"
+      alt="<%= provider.businessName %> Profile"
+      style="
+        max-width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      "
+    />
     <h1><%= provider.businessName %></h1>
     <p>
       <strong>Average Rating:</strong> <%= averageRating %> ★ (<%= reviewCount
@@ -28,6 +39,17 @@
       <% provider.Services.forEach(service => { %>
       <div class="service-item">
         <h3><%= service.name %></h3>
+        <img
+          src="<%= service.imageUrl || '/images/default-service.png' %>"
+          alt="<%= service.name %>"
+          style="
+            max-width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+          "
+        />
         <p class="service-price">$<%= service.price %></p>
         <p><%= service.description %></p>
 

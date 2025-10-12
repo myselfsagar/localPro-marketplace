@@ -22,6 +22,11 @@ const Service = sequelize.define(
       type: DataTypes.DECIMAL(10, 2), // Suitable for currency
       allowNull: false,
     },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "/images/default-service.png",
+    },
   },
   {
     tableName: "Services",

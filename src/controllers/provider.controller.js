@@ -26,9 +26,14 @@ exports.getProfilePage = async (req, res) => {
 // This function handles the form submission
 exports.postProfilePage = async (req, res) => {
   try {
-    await providerService.upsertProfile(req.body, req.user.id);
+    const profileData = req.body;
 
-    // Redirect back to the profile page with a success message (optional)
+    // If a file was uploaded, add its Cloudinary URL to the profileData
+    if (req.file) {
+      profileData.profileImageUrl = req.file.path; // req.file.path is the Cloudinary URL
+    }
+
+    await providerService.upsertProfile(profileData, req.user.id);
     res.redirect("/provider/profile");
   } catch (error) {
     console.error(error);
@@ -46,12 +51,17 @@ exports.getAddServicePage = (req, res) => {
 // Handles the creation of the new service
 exports.postAddService = async (req, res) => {
   try {
-    // Delegate the logic to the service layer
-    await providerService.createService(req.body, req.user.id);
+    const serviceData = req.body;
+
+    // If a file was uploaded, add its Cloudinary URL to the serviceData
+    if (req.file) {
+      serviceData.imageUrl = req.file.path; // req.file.path is the Cloudinary URL
+    }
+
+    await providerService.createService(serviceData, req.user.id);
     res.redirect("/provider/profile");
   } catch (error) {
-    console.error(error);
-    // Optional: Redirect back to the form with an error message
+    console.error("Service creation failed:", error);
     res.redirect("/provider/services/new");
   }
 };

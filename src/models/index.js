@@ -1,15 +1,22 @@
 const User = require("./user.model");
 const ProviderProfile = require("./providerProfile.model");
 const Service = require("./service.model");
+const Booking = require("./booking.model");
 
 // --- Define Associations --- //
 
-// A ProviderProfile belongs to one User
+// User <-> ProviderProfile (One-to-One)
 ProviderProfile.belongsTo(User, { foreignKey: "userId" });
-// A User has one ProviderProfile
 User.hasOne(ProviderProfile, { foreignKey: "userId" });
 
-// A Service belongs to one ProviderProfile
+// ProviderProfile <-> Service (One-to-Many)
 Service.belongsTo(ProviderProfile, { foreignKey: "providerProfileId" });
-// A ProviderProfile can have many Services
 ProviderProfile.hasMany(Service, { foreignKey: "providerProfileId" });
+
+// A Booking is made by one User (the customer)
+Booking.belongsTo(User, { as: "Customer", foreignKey: "customerId" });
+User.hasMany(Booking, { as: "CustomerBookings", foreignKey: "customerId" });
+
+// A Booking is for one specific Service
+Booking.belongsTo(Service, { foreignKey: "serviceId" });
+Service.hasMany(Booking, { foreignKey: "serviceId" });

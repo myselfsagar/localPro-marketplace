@@ -26,10 +26,22 @@
         <h3><%= service.name %></h3>
         <p class="service-price">$<%= service.price %></p>
         <p><%= service.description %></p>
+
+        <% if (user) { %>
+        <a href="/book/new/<%= service.id %>" class="btn">Book This Service</a>
+        <% } %>
       </div>
       <% }) %>
     </div>
-    <% } else { %>
+
+    <% if (!user) { %>
+    <p>
+      <strong
+        ><a href="/login">Login</a> or <a href="/signup">Sign Up</a> to book
+        services.</strong
+      >
+    </p>
+    <% } %> <% } else { %>
     <p>This provider has not listed any services yet.</p>
     <% } %>
   </div>

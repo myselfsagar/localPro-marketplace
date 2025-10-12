@@ -1,12 +1,47 @@
 <%- include('../partials/header') %>
+
 <main>
   <h1>Welcome to your Dashboard, <%= user.firstName %>!</h1>
 
-  <% if (user.role === 'customer') { %>
-  <p>Start browsing for local services in your area.</p>
-  <% } else if (user.role === 'provider') { %>
-  <p>Manage your services and bookings here.</p>
-  <a href="/provider/profile">Manage Your Profile</a>
+  <hr />
+
+  <h2>My Bookings</h2>
+
+  <% if (bookings.length > 0) { %>
+  <div class="booking-list">
+    <% bookings.forEach(booking => { %>
+    <div class="booking-card">
+      <% if (user.role === 'customer') { %>
+      <h4><%= booking.Service.name %></h4>
+      <p>
+        with
+        <strong><%= booking.Service.ProviderProfile.businessName %></strong>
+      </p>
+      <% } else { %>
+      <h4><%= booking.Service.name %></h4>
+      <p>
+        with
+        <strong
+          ><%= booking.Customer.firstName %> <%= booking.Customer.lastName
+          %></strong
+        >
+      </p>
+      <% } %>
+
+      <p>Date: <%= new Date(booking.bookingDate).toLocaleString() %></p>
+      <p>
+        Status:
+        <span class="status-<%= booking.status %>"><%= booking.status %></span>
+      </p>
+    </div>
+    <% }) %>
+  </div>
+  <% } else { %>
+  <p>You have no bookings yet.</p>
+  <% } %> <% if (user.role === 'provider') { %>
+  <p style="margin-top: 2rem">
+    <a href="/provider/profile">Manage Your Profile & Services</a>
+  </p>
   <% } %>
 </main>
 

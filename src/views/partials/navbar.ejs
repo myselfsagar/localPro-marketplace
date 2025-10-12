@@ -3,12 +3,13 @@
     <a href="/">LocalPro</a>
   </div>
   <ul class="navbar-links">
+    <li><a href="/providers">Browse Providers</a></li>
+
     <% if (user) { %>
     <li><span>Welcome, <%= user.firstName %></span></li>
     <li><a href="/dashboard">Dashboard</a></li>
     <li><a href="/logout">Logout</a></li>
     <% } else { %>
-    <li><a href="/">Home</a></li>
     <li><a href="/login">Login</a></li>
     <li><a href="/signup">Sign Up</a></li>
     <% } %>

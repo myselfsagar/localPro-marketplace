@@ -1,0 +1,30 @@
+<%- include('../../partials/header') %>
+
+<main>
+  <h1>Confirm Your Booking</h1>
+  <p>You are booking the following service:</p>
+
+  <div class="service-summary">
+    <h2><%= service.name %></h2>
+    <p>with <strong><%= service.ProviderProfile.businessName %></strong></p>
+    <p>Price: $<%= service.price %></p>
+  </div>
+
+  <form action="/book" method="POST">
+    <input type="hidden" name="serviceId" value="<%= service.id %>" />
+
+    <div>
+      <label for="bookingDate">Choose a date and time:</label>
+      <input
+        type="datetime-local"
+        id="bookingDate"
+        name="bookingDate"
+        required
+      />
+    </div>
+
+    <button type="submit">Confirm Booking</button>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

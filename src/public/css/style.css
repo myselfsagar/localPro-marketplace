@@ -1,3 +1,39 @@
+/* Homepage Hero Section Styling */
+.hero-section {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #555;
+}
+
 /* Basic Navbar Styling */
 .navbar {
   display: flex;
@@ -104,4 +140,43 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #2c5e2e;
+}
+
+/* Booking List Styling */
+.booking-list {
+  margin-top: 1rem;
+}
+
+.booking-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.booking-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.booking-card p {
+  margin: 0.25rem 0;
+}
+
+.status-pending {
+  color: #f0ad4e;
+  font-weight: bold;
+}
+.status-confirmed {
+  color: #5cb85c;
+  font-weight: bold;
+}
+.status-completed {
+  color: #5bc0de;
+  font-weight: bold;
+}
+.status-cancelled {
+  color: #d9534f;
+  font-weight: bold;
 }

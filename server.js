@@ -5,6 +5,7 @@ const sequelize = require("./src/config/db.config");
 const routes = require("./src/routes/index");
 const session = require("express-session");
 const passport = require("passport");
+const flash = require("connect-flash");
 const app = express();
 
 //models
@@ -29,9 +30,19 @@ app.use(
 );
 
 // --- Initialize Passport and Session --- //
-require("./src/config/passport.config"); // This executes the passport config file
+require("./src/config/passport.config");
 app.use(passport.initialize());
 app.use(passport.session());
+
+// --- Flash Message Middleware --- //
+app.use(flash());
+
+// Custom middleware to make flash messages available in all templates
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error"); // 'error' is used by passport.js failureFlash
+  next();
+});
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");

@@ -19,7 +19,7 @@ Booking.belongsTo(User, { as: "Customer", foreignKey: "customerId" });
 User.hasMany(Booking, { as: "CustomerBookings", foreignKey: "customerId" });
 
 // A Booking is for one specific Service
-Booking.belongsTo(Service, { foreignKey: "serviceId" });
+Booking.belongsTo(Service, { foreignKey: "serviceId", onDelete: "SET NULL" });
 Service.hasMany(Booking, { foreignKey: "serviceId" });
 
 // A Review belongs to one Booking

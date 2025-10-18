@@ -15,7 +15,7 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/dashboard", // Redirect to dashboard on successful login
     failureRedirect: "/login", // Redirect back to login on failure
-    // failureFlash: true // Optional: if we want to show flash messages
+    failureFlash: true,
   })
 );
 

@@ -9,7 +9,7 @@ const getSignupPage = async (req, res) => {
 const postSignup = async (req, res) => {
   try {
     await authService.registerUser(req.body);
-
+    req.flash("success_msg", "You are now registered and can log in!");
     res.redirect("/login");
   } catch (error) {
     console.log("Error during signup:", error.message);
@@ -30,6 +30,7 @@ const logout = (req, res, next) => {
     if (err) {
       return next(err);
     }
+    req.flash("success_msg", "You have been logged out.");
     res.redirect("/");
   });
 };

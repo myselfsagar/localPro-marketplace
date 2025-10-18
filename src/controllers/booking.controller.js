@@ -35,6 +35,7 @@ exports.postNewBooking = async (req, res) => {
       bookingDate,
       customerId,
     });
+    req.flash("success_msg", "Your booking request has been sent!");
 
     // Redirect to the dashboard after a successful booking
     res.redirect("/dashboard");

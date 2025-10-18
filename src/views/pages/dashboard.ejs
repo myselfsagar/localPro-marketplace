@@ -1,4 +1,4 @@
-<%- include('../partials/header') %>
+<%- include('../partials/header') %> <%- include('../partials/_messages') %>
 
 <main>
   <h1>Welcome to your Dashboard, <%= user.firstName %>!</h1>
@@ -10,7 +10,7 @@
   <div class="booking-list">
     <% bookings.forEach(booking => { %>
     <div class="booking-card">
-      <% if (user.role === 'customer') { %>
+      <% if (booking.Service) { %> <% if (user.role === 'customer') { %>
       <h4><%= booking.Service.name %></h4>
       <p>
         with
@@ -70,7 +70,14 @@
           <button type="submit" class="btn-complete">Mark as Completed</button>
         </form>
       </div>
-      <% } %> <% } %>
+      <% } %> <% } %> <% } else { %>
+      <h4>[Deleted Service]</h4>
+      <p>This booking's associated service has been removed.</p>
+      <p>
+        Status:
+        <span class="status-<%= booking.status %>"><%= booking.status %></span>
+      </p>
+      <% } %>
     </div>
     <% }) %>
   </div>

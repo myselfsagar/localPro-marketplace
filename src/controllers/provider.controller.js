@@ -34,6 +34,7 @@ exports.postProfilePage = async (req, res) => {
     }
 
     await providerService.upsertProfile(profileData, req.user.id);
+    req.flash("success_msg", "Your profile has been updated successfully!");
     res.redirect("/provider/profile");
   } catch (error) {
     console.error(error);

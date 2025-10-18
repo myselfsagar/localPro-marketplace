@@ -1,3 +1,134 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+  text-align: center;
+  /* padding-top: 20px; */
+}
+
+main {
+  padding: 1rem 0;
+}
+
+/* --- Button Standardization --- */
+/* Base style for all buttons and links styled as buttons */
+.btn,
+.cta-button,
+button[type="submit"],
+.btn-confirm,
+.btn-cancel,
+.btn-complete {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin: 0.25rem 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+/* Hover effect for all */
+.btn:hover,
+.cta-button:hover,
+button[type="submit"]:hover,
+.btn-confirm:hover,
+.btn-cancel:hover,
+.btn-complete:hover {
+  background-color: #555;
+  color: white; /* Ensure text stays white on hover */
+}
+
+/* Color Overrides for specific actions */
+.btn-confirm {
+  background-color: #5cb85c;
+} /* green */
+.btn-confirm:hover {
+  background-color: #4a9d4a;
+}
+
+.btn-cancel {
+  background-color: #d9534f;
+} /* red */
+.btn-cancel:hover {
+  background-color: #b5413e;
+}
+
+.btn-complete {
+  background-color: #5bc0de;
+} /* blue */
+.btn-complete:hover {
+  background-color: #46b8da;
+}
+
+/* --- Form Standardization --- */
+form {
+  margin: 1.5rem 0;
+}
+
+form div {
+  margin-bottom: 1rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: bold;
+}
+
+/* Style all text inputs, textareas, and selects the same way */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="datetime-local"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* Styling for auth page "Sign up / Login" links */
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.auth-link a {
+  color: #337ab7; /* A standard link-blue */
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
 /* Homepage Hero Section Styling */
 .hero-section {
   text-align: center;
@@ -77,6 +208,23 @@
   color: #a0a0a0; /* Lighter color for welcome message */
 }
 
+.navbar-toggle {
+  display: none; /* Hidden on desktop */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.navbar-toggle .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
 /* Provider List Styling */
 .provider-list {
   display: grid;
@@ -108,9 +256,12 @@
 
 /* Provider Detail Page Styling */
 .provider-detail-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .profile-header {
@@ -278,4 +429,57 @@
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+}
+
+/* --- Responsive Design (Mobile) --- */
+@media (max-width: 768px) {
+  /* Make navbar links stack vertically */
+  .navbar {
+    flex-direction: row; /* Keep brand and button on one line */
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-toggle {
+    display: block; /* Show the hamburger button */
+  }
+
+  /* This replaces your old .navbar-links rule */
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #333;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    padding: 1rem 0;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-links li {
+    text-align: center;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  /* Make the search form stack */
+  .search-container form {
+    flex-direction: column;
+  }
+
+  /* Make the provider list single-column */
+  .provider-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust container padding for mobile */
+  .container,
+  .provider-detail-container {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
 }

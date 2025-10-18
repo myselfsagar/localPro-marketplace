@@ -1,7 +1,8 @@
 <%- include('../partials/header') %> <%- include('../partials/_messages') %>
 
-<main>
+<main class="container">
   <h1>Create Your Account</h1>
+
   <form action="/signup" method="POST">
     <div>
       <label for="firstName">First Name</label>
@@ -30,6 +31,8 @@
     </div>
     <button type="submit">Sign Up</button>
   </form>
+
+  <p class="auth-link">Already have an account? <a href="/login">Login</a></p>
 </main>
 
 <%- include('../partials/footer') %>

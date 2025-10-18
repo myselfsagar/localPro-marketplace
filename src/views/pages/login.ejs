@@ -1,7 +1,8 @@
 <%- include('../partials/header') %> <%- include('../partials/_messages') %>
 
-<main>
+<main class="container">
   <h1>Login to Your Account</h1>
+
   <form action="/login" method="POST">
     <div>
       <label for="email">Email</label>
@@ -13,6 +14,8 @@
     </div>
     <button type="submit">Login</button>
   </form>
+
+  <p class="auth-link">Don't have an account? <a href="/signup">Sign Up</a></p>
 </main>
 
 <%- include('../partials/footer') %>

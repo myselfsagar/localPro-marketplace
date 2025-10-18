@@ -2,7 +2,14 @@
   <div class="navbar-brand">
     <a href="/">LocalPro</a>
   </div>
-  <ul class="navbar-links">
+
+  <button class="navbar-toggle" id="navbarToggle">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <ul class="navbar-links" id="navbarLinks">
     <li><a href="/providers">Browse Providers</a></li>
 
     <% if (user) { %>

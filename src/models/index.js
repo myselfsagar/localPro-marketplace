@@ -7,15 +7,19 @@ const Review = require("./review.model");
 // --- Define Associations --- //
 
 // User <-> ProviderProfile (One-to-One)
-ProviderProfile.belongsTo(User, { foreignKey: "userId" });
-User.hasOne(ProviderProfile, { foreignKey: "userId" });
+ProviderProfile.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+User.hasOne(ProviderProfile, { foreignKey: "userId", onDelete: "CASCADE" });
 
 // ProviderProfile <-> Service (One-to-Many)
 Service.belongsTo(ProviderProfile, { foreignKey: "providerProfileId" });
 ProviderProfile.hasMany(Service, { foreignKey: "providerProfileId" });
 
 // A Booking is made by one User (the customer)
-Booking.belongsTo(User, { as: "Customer", foreignKey: "customerId" });
+Booking.belongsTo(User, {
+  as: "Customer",
+  foreignKey: "customerId",
+  onDelete: "SET NULL",
+});
 User.hasMany(Booking, { as: "CustomerBookings", foreignKey: "customerId" });
 
 // A Booking is for one specific Service

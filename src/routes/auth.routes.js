@@ -22,4 +22,18 @@ router.post(
 // --- Logout Route --- //
 router.get("/logout", authController.logout);
 
+// --- PASSWORD RESET ROUTES --- //
+
+// GET /forgot-password - Show form to request reset
+router.get("/forgot-password", authController.getForgotPasswordPage);
+
+// POST /forgot-password - Handle the email submission
+router.post("/forgot-password", authController.postForgotPassword);
+
+// GET /reset-password/:token - Show form to set new password
+router.get("/reset-password/:token", authController.getResetPasswordPage);
+
+// POST /reset-password - Handle the new password submission
+router.post("/reset-password", authController.postResetPassword);
+
 module.exports = router;

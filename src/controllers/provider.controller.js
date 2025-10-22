@@ -67,6 +67,72 @@ exports.postAddService = async (req, res) => {
   }
 };
 
+// Renders the page with the "edit service" form
+exports.getEditServicePage = async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+    const service = await Service.findByPk(serviceId);
+
+    // Security check (quick check, full check is in the service)
+    const profile = await ProviderProfile.findOne({
+      where: { userId: req.user.id },
+    });
+    if (!service || service.providerProfileId !== profile.id) {
+      req.flash(
+        "error_msg",
+        "Service not found or you do not have permission to edit it."
+      );
+      return res.redirect("/provider/profile");
+    }
+
+    res.render("pages/provider/edit-service", {
+      pageTitle: `Edit ${service.name}`,
+      service: service,
+    });
+  } catch (error) {
+    console.error(error);
+    req.flash("error_msg", "Error loading the page.");
+    res.redirect("/provider/profile");
+  }
+};
+
+// Handles the update of the service
+exports.postEditService = async (req, res) => {
+  const serviceId = req.params.id;
+  try {
+    const serviceData = req.body;
+
+    // If a new file was uploaded, add its path to the update data
+    if (req.file) {
+      serviceData.imageUrl = req.file.path;
+    }
+
+    await providerService.updateService(serviceId, req.user.id, serviceData);
+
+    req.flash("success_msg", "Service updated successfully!");
+    res.redirect("/provider/profile");
+  } catch (error) {
+    console.error("Service update failed:", error);
+    req.flash("error_msg", `Error updating service: ${error.message}`);
+    res.redirect(`/provider/services/${serviceId}/edit`);
+  }
+};
+
+// Handles deleting a service
+exports.postDeleteService = async (req, res) => {
+  const serviceId = req.params.id;
+  try {
+    await providerService.deleteService(serviceId, req.user.id);
+
+    req.flash("success_msg", "Service has been deleted.");
+    res.redirect("/provider/profile");
+  } catch (error) {
+    console.error("Service deletion failed:", error);
+    req.flash("error_msg", `Error deleting service: ${error.message}`);
+    res.redirect("/provider/profile");
+  }
+};
+
 // This function handles updating the status of a booking
 exports.updateBookingStatus = async (req, res) => {
   try {

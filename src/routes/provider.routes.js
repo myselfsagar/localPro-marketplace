@@ -49,6 +49,31 @@ router.post(
   providerController.postAddService
 );
 
+// GET /provider/services/:id/edit - Shows the edit form for a specific service
+router.get(
+  "/services/:id/edit",
+  isAuthenticated,
+  isProvider,
+  providerController.getEditServicePage
+);
+
+// POST /provider/services/:id - Handles the update for a specific service
+router.post(
+  "/services/:id",
+  isAuthenticated,
+  isProvider,
+  uploadServiceImage.single("serviceImage"),
+  providerController.postEditService
+);
+
+// POST /provider/services/:id/delete - Handles deleting a service
+router.post(
+  "/services/:id/delete",
+  isAuthenticated,
+  isProvider,
+  providerController.postDeleteService
+);
+
 // POST /provider/bookings/:bookingId/status - Updates a booking's status
 router.post(
   "/bookings/:bookingId/status",

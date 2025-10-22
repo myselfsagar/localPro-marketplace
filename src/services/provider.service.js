@@ -35,7 +35,49 @@ async function createService(serviceData, userId) {
   return newService;
 }
 
+async function updateService(serviceId, providerUserId, serviceData) {
+  // 1. Find the service and its provider profile
+  const service = await Service.findByPk(serviceId, {
+    include: { model: ProviderProfile },
+  });
+
+  if (!service) {
+    throw new Error("Service not found.");
+  }
+
+  // 2. Security Check: Ensure the logged-in user owns this service
+  if (service.ProviderProfile.userId !== providerUserId) {
+    throw new Error("Unauthorized: You do not own this service.");
+  }
+
+  // 3. Update the service with new data
+  // serviceData already includes the new imageUrl if one was uploaded
+  await service.update(serviceData);
+  return service;
+}
+
+async function deleteService(serviceId, providerUserId) {
+  // 1. Find the service and its provider profile
+  const service = await Service.findByPk(serviceId, {
+    include: { model: ProviderProfile },
+  });
+
+  if (!service) {
+    throw new Error("Service not found.");
+  }
+
+  // 2. Security Check: Ensure the logged-in user owns this service
+  if (service.ProviderProfile.userId !== providerUserId) {
+    throw new Error("Unauthorized: You do not own this service.");
+  }
+
+  // 3. Delete the service
+  await service.destroy();
+}
+
 module.exports = {
   upsertProfile,
   createService,
+  updateService,
+  deleteService,
 };

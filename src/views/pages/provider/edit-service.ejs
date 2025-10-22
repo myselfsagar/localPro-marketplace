@@ -1,0 +1,60 @@
+<%- include('../../partials/header') %> <%- include('../../partials/_messages')
+%>
+
+<main class="container">
+  <h1>Edit Your Service</h1>
+
+  <form
+    action="/provider/services/<%= service.id %>"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div>
+      <label for="name">Service Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= service.name %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="4" required>
+<%= service.description %></textarea
+      >
+    </div>
+    <div>
+      <label for="price">Price ($)</label>
+      <input
+        type="number"
+        id="price"
+        name="price"
+        step="0.01"
+        value="<%= service.price %>"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="serviceImage">Replace Cover Image (Optional)</label>
+      <p>Current Image:</p>
+      <img
+        src="<%= service.imageUrl || '/images/default-service.png' %>"
+        alt="Current Image"
+        style="width: 150px; height: auto; border-radius: 5px"
+      />
+      <input
+        type="file"
+        id="serviceImage"
+        name="serviceImage"
+        accept="image/png, image/jpeg, image/gif"
+      />
+    </div>
+
+    <button type="submit">Update Service</button>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

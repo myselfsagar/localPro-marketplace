@@ -14,7 +14,7 @@ async function createBooking(bookingData) {
     serviceId: serviceId,
     bookingDate: bookingDate,
     customerId: customerId,
-    // The 'status' will default to 'pending' as defined in the model
+    status: "pending", // The 'status' will default to 'pending' as defined in the model
   });
 
   return newBooking;

@@ -1,3 +1,10 @@
+    <script>
+        // Pass the user's auth status from EJS to a global JS variable
+        window.isAuthenticated = <%= user ? true : false %>;
+    </script>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/js/main.js"></script>
 </body>
 </html>

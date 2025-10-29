@@ -431,6 +431,94 @@ textarea {
   border-color: #f5c6cb;
 }
 
+/* --- Notification Badge --- */
+.notification-item {
+  position: relative; /* Needed for absolute positioning of the badge */
+  padding: 0 1rem;
+  display: flex; /* Align bell and badge */
+  align-items: center;
+}
+
+.notification-bell {
+  text-decoration: none;
+  color: white;
+  position: relative;
+  display: block;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px; /* Position badge slightly above the bell */
+  right: 5px; /* Position badge slightly to the right of the bell */
+  background-color: red;
+  color: white;
+  border-radius: 50%; /* Make it circular */
+  padding: 2px 6px; /* Small padding */
+  font-size: 0.7rem; /* Small font size */
+  font-weight: bold;
+  min-width: 18px; /* Ensure circle shape even for single digit */
+  text-align: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* The dropdown container */
+.notification-dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 55px; /* Position below the navbar */
+  right: 0;
+  width: 320px; /* Set a fixed width */
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+/* Class to show the dropdown (added by JS) */
+.notification-dropdown.show {
+  display: block;
+}
+
+.notification-header {
+  font-weight: bold;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-list .no-notifications {
+  padding: 1rem;
+  text-align: center;
+  color: #888;
+}
+
+/* Individual notification item */
+.notification-list-item {
+  border-bottom: 1px solid #eee;
+}
+
+.notification-list-item a {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.notification-list-item:last-child {
+  border-bottom: none;
+}
+
+.notification-list-item:hover {
+  background-color: #f9f9f9;
+}
+
 /* --- Responsive Design (Mobile) --- */
 @media (max-width: 768px) {
   /* Make navbar links stack vertically */
@@ -464,6 +552,24 @@ textarea {
     text-align: center;
     width: 100%;
     padding: 0.5rem 0;
+  }
+
+  /* notification */
+  .notification-item {
+    justify-content: center; /* Center on mobile */
+    padding: 0.5rem 0;
+  }
+  .notification-badge {
+    position: relative; /* Position next to bell on mobile */
+    top: 0;
+    right: -5px; /* Add slight spacing */
+  }
+
+  /* Position dropdown relative to the edge */
+  .notification-dropdown {
+    width: 90vw;
+    right: 5vw;
+    top: 65px;
   }
 
   /* Make the search form stack */

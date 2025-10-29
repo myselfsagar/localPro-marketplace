@@ -5,6 +5,12 @@ const Service = require("../models/service.model");
 const Booking = require("../models/booking.model");
 const Review = require("../models/review.model");
 
+exports.getHomePage = (req, res) => {
+  res.render("pages/index", {
+    pageTitle: "Welcome to LocalPro",
+  });
+};
+
 // This function fetches all providers to display on the browse page
 exports.getAllProvidersPage = async (req, res) => {
   try {

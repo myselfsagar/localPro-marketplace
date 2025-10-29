@@ -1,6 +1,7 @@
+const bookingService = require("../services/booking.service");
 const Service = require("../models/service.model");
 const ProviderProfile = require("../models/providerProfile.model");
-const bookingService = require("../services/booking.service");
+const User = require("../models/user.model");
 
 // Renders the new booking confirmation page
 exports.getNewBookingPage = async (req, res) => {
@@ -26,22 +27,48 @@ exports.getNewBookingPage = async (req, res) => {
 
 // This function handles the booking form submission
 exports.postNewBooking = async (req, res) => {
+  const emitNotification = req.app.get("emitNotification"); // Get emit function
   try {
     const { serviceId, bookingDate } = req.body;
-    const customerId = req.user.id; // Get the logged-in user's ID
+    const customerId = req.user.id;
 
-    await bookingService.createBooking({
-      serviceId,
-      bookingDate,
-      customerId,
+    // Create the booking
+    const newBooking = await bookingService.createBooking(
+      {
+        serviceId,
+        bookingDate,
+        customerId,
+      },
+      req.user
+    );
+
+    // --- EMIT DETAILED NOTIFICATION ---
+    // Fetch service details again for notification data
+    const service = await Service.findByPk(serviceId, {
+      include: { model: ProviderProfile, attributes: ["userId"] },
+      attributes: ["name", "price"],
     });
-    req.flash("success_msg", "Your booking request has been sent!");
 
-    // Redirect to the dashboard after a successful booking
+    if (service && service.ProviderProfile) {
+      const providerUserId = service.ProviderProfile.userId;
+
+      // Emit all data needed for the frontend card
+      emitNotification(providerUserId, "new_booking", {
+        bookingId: newBooking.id,
+        serviceName: service.name,
+        customerName: `${req.user.firstName} ${req.user.lastName || ""}`,
+        bookingDate: newBooking.bookingDate,
+        price: service.price,
+        status: "pending",
+      });
+    }
+    // --------------------------
+
+    req.flash("success_msg", "Your booking request has been sent!");
     res.redirect("/dashboard");
   } catch (error) {
     console.error("Booking creation failed:", error);
-    // Redirect back to the providers list on failure
-    res.redirect("/providers");
+    req.flash("error_msg", "Booking failed. Please try again.");
+    res.redirect(`/providers`);
   }
 };

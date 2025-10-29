@@ -2,17 +2,22 @@ const Booking = require("../models/booking.model");
 const Service = require("../models/service.model");
 const ProviderProfile = require("../models/providerProfile.model");
 const User = require("../models/user.model");
-const Review = require("../models/review.model");
 
 exports.getDashboardPage = async (req, res) => {
   try {
-    let bookings = [];
+    const page = parseInt(req.query.page) || 1; // Get page number from URL, default to 1
+    const limit = 5; // Number of bookings per page
+    const offset = (page - 1) * limit; // Calculate offset
+
+    let bookingsResult = { count: 0, rows: [] };
+
     if (req.user.role === "customer") {
-      // --- Fetch bookings for a customer ---
-      bookings = await Booking.findAll({
+      // Fetch paginated bookings for a customer
+      bookingsResult = await Booking.findAndCountAll({
         where: { customerId: req.user.id },
+        limit: limit,
+        offset: offset,
         include: [
-          // Use an array for multiple includes
           {
             model: Service,
             attributes: ["name", "price"],
@@ -21,22 +26,19 @@ exports.getDashboardPage = async (req, res) => {
               attributes: ["businessName"],
             },
           },
-          {
-            model: Review,
-            required: false,
-          },
+          { model: Review, required: false },
         ],
         order: [["bookingDate", "DESC"]],
       });
     } else if (req.user.role === "provider") {
-      // --- Fetch bookings for a provider ---
-      // We find the provider's profile first.
+      // Fetch paginated bookings for a provider
       const profile = await ProviderProfile.findOne({
         where: { userId: req.user.id },
       });
       if (profile) {
-        bookings = await Booking.findAll({
-          // Find bookings where the serviceId belongs to one of the provider's services
+        bookingsResult = await Booking.findAndCountAll({
+          limit: limit,
+          offset: offset,
           include: [
             {
               model: Service,
@@ -45,7 +47,7 @@ exports.getDashboardPage = async (req, res) => {
             },
             {
               model: User,
-              as: "Customer", // Use the alias we defined
+              as: "Customer",
               attributes: ["firstName", "lastName"],
             },
           ],
@@ -54,10 +56,14 @@ exports.getDashboardPage = async (req, res) => {
       }
     }
 
+    const totalPages = Math.ceil(bookingsResult.count / limit);
+
     res.render("pages/dashboard", {
       pageTitle: "My Dashboard",
       user: req.user,
-      bookings: bookings, // Pass the fetched bookings to the view
+      bookings: bookingsResult.rows, // Pass 'rows' as 'bookings'
+      totalPages: totalPages,
+      currentPage: page,
     });
   } catch (error) {
     console.error("Failed to fetch dashboard data:", error);

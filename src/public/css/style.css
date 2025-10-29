@@ -519,6 +519,71 @@ textarea {
   background-color: #f9f9f9;
 }
 
+/* --- Collapsible Sections --- */
+.collapsible-header {
+  background-color: #f0f0f0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.collapsible-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.toggle-icon {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Style for when the section is expanded */
+.collapsible-header.active .toggle-icon {
+  transform: rotate(180deg); /* Flip the arrow */
+}
+
+/* Hide content by default using max-height for smooth transition */
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  border: 1px solid #ddd;
+  border-top: none; /* Avoid double border */
+  padding: 0 1rem; /* Padding only applied when open */
+  border-radius: 0 0 5px 5px;
+}
+
+/* Style for when the section is expanded */
+.collapsible-content.active {
+  max-height: 60vh; /* 1. Set max-height to 60% of the viewport height */
+  overflow-y: auto; /* 2. Add a vertical scrollbar if content overflows */
+  padding: 1rem;
+  transition: max-height 0.5s ease-in;
+}
+
+/* --- Pagination Controls --- */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-bottom: 0.5rem; /* Space inside the collapsible box */
+  flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+}
+
+/* Style for the current page button */
+.pagination-controls .btn-current {
+  background-color: #555;
+  color: white;
+  pointer-events: none; /* Makes it unclickable */
+}
+
 /* --- Responsive Design (Mobile) --- */
 @media (max-width: 768px) {
   /* Make navbar links stack vertically */

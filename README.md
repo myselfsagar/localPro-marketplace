@@ -2,8 +2,8 @@
 
 A full-stack hyperlocal services marketplace where customers can find, book, and review local professionals.
 
-**Live Link:** https://localpro-app.onrender.com
-**Demo Video:** https://vimeo.com/1131823703?share=copy&fl=sv&fe=ci
+- **Live Link:** https://localpro-app.onrender.com
+- **Demo Video:** https://vimeo.com/1131823703?share=copy&fl=sv&fe=ci
 
 ## 🌟 Project Overview
 

@@ -49,7 +49,7 @@ async function startServer() {
     await sequelize.authenticate();
     console.log("✅ Database connection established.");
     await sequelize.sync({
-      alter: true,
+      /* alter: true */
     }); // Use alter if needed to update model
     console.log("✅ Models synchronized.");
 

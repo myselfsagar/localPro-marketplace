@@ -2,6 +2,7 @@ const Booking = require("../models/booking.model");
 const Service = require("../models/service.model");
 const ProviderProfile = require("../models/providerProfile.model");
 const User = require("../models/user.model");
+const Review = require("../models/review.model");
 
 exports.getDashboardPage = async (req, res) => {
   try {

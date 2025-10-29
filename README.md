@@ -2,12 +2,12 @@
 
 A full-stack hyperlocal services marketplace where customers can find, book, and review local professionals.
 
-**Live Link:** https://bold.pro/my/sagar-sahu-251021193117
-**Demo Video:** [Link to your demo video on YouTube/Loom]
+**Live Link:** https://localpro-app.onrender.com
+**Demo Video:** https://vimeo.com/1131823703?share=copy&fl=sv&fe=ci
 
 ## 🌟 Project Overview
 
-The goal of this project is to build a complete, real-world, product-focused application from scratch. LocalPro solves the problem of finding and booking reliable local service providers in a single, trust-driven platform. Built with a focus on user experience and real-world application, mimicking features found in popular service marketplaces.
+This is the capstone project for the Sharpener Full Stack Web Development course. The goal was to build a complete, real-world, product-focused application from scratch. LocalPro solves the problem of finding and booking reliable local service providers in a single, trust-driven platform. Built with a focus on user experience and real-world application, mimicking features found in popular service marketplaces.
 
 ## ✨ Core Features
 
@@ -21,35 +21,47 @@ The goal of this project is to build a complete, real-world, product-focused app
 - **End-to-End Booking System:**
   - Customers can book a service for a specific date and time.
   - Providers see booking requests on their dashboard.
-  - Providers can "Confirm" or "Cancel" pending bookings.
+  - Providers can "Confirm," "Cancel," or mark bookings as "Completed."
 - **Review & Rating System:**
-  - Providers can mark bookings as "Completed."
   - Customers can leave a star rating and a comment for completed bookings.
   - Average ratings and reviews are dynamically calculated and displayed on the provider's public profile.
-- **Responsive UI:** Clean, mobile-first design with a hamburger menu and consistent styling across forms and buttons.
-- **Feedback:** Flash messages provide clear feedback to the user after every action (e.g., "Booking created!", "Profile updated!").
+- **Real-Time Notifications (Socket.IO):** Providers receive instant toast notifications and a navbar badge update upon receiving new booking requests. Includes a notification dropdown.
+- **Responsive & Dynamic UI:**
+  - Clean, mobile-first design with a hamburger menu.
+  - Consistent styling across forms, buttons, and alerts.
+  - Collapsible sections on the dashboard for better organization.
+  - **Pagination** implemented on the dashboard booking list.
+  - Dynamic dashboard updates for providers when new bookings arrive.
+- **User Feedback:** Flash messages provide clear feedback after actions (e.g., "Booking created!", "Profile updated!", "Login failed!").
 - **Cloud Image Uploads:** Integrated image uploads for provider profiles and services using Multer and Cloudinary.
+- **Database Integrity:** Associations configured with `onDelete` rules (`CASCADE`, `SET NULL`) to handle related data deletion properly.
 
 ## 🛠️ Tech Stack
 
 - **Backend:** Node.js (v20.x), Express.js
+- **Real-time:** Socket.IO
 - **Database:** MySQL, Sequelize (ORM)
 - **Frontend:** EJS (Templating), HTML5, CSS3, Vanilla JavaScript
 - **Authentication:** Passport.js, express-session, bcrypt.js
 - **File Storage:** Cloudinary, Multer, multer-storage-cloudinary
 - **Email:** Brevo (formerly Sendinblue) via `sib-api-v3-sdk`
+- **UI Feedback:** connect-flash, Toastify-js
 - **Deployment:** Render (Web Service), Aiven (MySQL Database)
 
 ## 📸 Screenshots
 
+_(Consider adding screenshots here - replace placeholders)_
 ![Provider Browse Page](path/to/screenshot-browse.png)
 _Browse page with search functionality_
 
 ![Provider Detail Page](path/to/screenshot-detail.png)
-_Provider profile showing details, services, and reviews_
+_Provider profile showing details, services, images, and reviews_
 
 ![Customer Dashboard](path/to/screenshot-dashboard.png)
-_Customer dashboard displaying booking history_
+_Customer dashboard displaying paginated booking history and review links_
+
+![Provider Dashboard Notification](path/to/screenshot-notification.png)
+_Provider dashboard showing real-time notification badge and dropdown_
 
 ## 🚀 How to Run Locally
 
@@ -61,7 +73,7 @@ _Customer dashboard displaying booking history_
 2.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/myselfsagar/localPro-marketplace.git
+    git clone [https://github.com/myselfsagar/localPro-marketplace.git](https://github.com/myselfsagar/localPro-marketplace.git)
     cd localpro-marketplace
     ```
 
@@ -78,7 +90,7 @@ _Customer dashboard displaying booking history_
 
 5.  **Create your `.env` file:**
 
-    - Create a `.env` file in the root directory by copying the `.env.example` file.
+    - Create a `.env` file in the root directory by copying the `.env.example` file (ensure this example file exists in your repo).
     - Fill in your actual database credentials, Cloudinary keys, Brevo key, and session secret in the `.env` file:
 
       ```ini
@@ -116,6 +128,6 @@ _Customer dashboard displaying booking history_
 
 ## 📞 Contact
 
-Sagar Sahu - https://www.linkedin.com/in/myselfsagar/ - myselfsagar@zohomail.in
+Sagar Sahu - [https://www.linkedin.com/in/myselfsagar/](https://www.linkedin.com/in/myselfsagar/) - myselfsagar@zohomail.in
 
-Project Link: https://github.com/myselfsagar/localPro-marketplace.git
+Project Link: [https://github.com/myselfsagar/localPro-marketplace](https://github.com/myselfsagar/localPro-marketplace)

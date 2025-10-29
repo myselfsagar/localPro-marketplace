@@ -24,16 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const noNotificationsMsg = document.querySelector(".no-notifications");
 
     socket.on("connect", () => {
-      console.log("Authenticated user connected to WebSocket server");
+      // console.log("Authenticated user connected to WebSocket server");
     });
 
     socket.on("disconnect", () => {
-      console.log("Disconnected from WebSocket server");
+      // console.log("Disconnected from WebSocket server");
     });
 
     // Listen for the 'new_booking' event from the server
     socket.on("new_booking", (data) => {
-      console.log("New booking notification received:", data);
+      // console.log("New booking notification received:", data);
 
       // 1. Show Toast Notification
       Toastify({

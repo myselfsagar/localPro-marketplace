@@ -12,13 +12,13 @@ function configureSocketIO(io, sessionMiddleware) {
   io.on("connection", (socket) => {
     const user = socket.request.user;
     if (user) {
-      console.log(
-        `User connected: ${user.firstName} (ID: ${user.id}), Socket ID: ${socket.id}`
-      );
+      // console.log(
+      //   `User connected: ${user.firstName} (ID: ${user.id}), Socket ID: ${socket.id}`
+      // );
       connectedUsers[user.id] = socket.id;
 
       socket.on("disconnect", () => {
-        console.log(`User disconnected: ${user.firstName} (ID: ${user.id})`);
+        // console.log(`User disconnected: ${user.firstName} (ID: ${user.id})`);
         if (connectedUsers[user.id] === socket.id) {
           delete connectedUsers[user.id];
         }
@@ -34,9 +34,10 @@ function configureSocketIO(io, sessionMiddleware) {
     const socketId = connectedUsers[userId];
     if (socketId) {
       io.to(socketId).emit(eventName, data);
-      console.log(
-        `Emitted '${eventName}' to User ID: ${userId} (Socket ID: ${socketId})`
-      );
+      console
+        .log
+        // `Emitted '${eventName}' to User ID: ${userId} (Socket ID: ${socketId})`
+        ();
     } else {
       console.log(`User ID: ${userId} not connected for notification.`);
     }
